@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+	var sock;
+	$(document).ready(function(){
+		sock = new WebSocket('ws://localhost:8080/StreamGame/ws/play');
+		sock.onopen = function(ev) {
+			console.log('Connected to server ');
+	    }
+	    sock.onclose = function(ev) { 
+	        console.log('Disconnected');
+	    };
+	    sock.onmessage = function(ev) { 
+	    	console.log('Message '+ev.data);
+	    };
+	    sock.onerror = function(ev) { 
+	    	console.log('Error '+ev.data);
+	    };
+	     //Send a Message
+	    $('#send').click(function(){ 
+	        var mymessage = 'hi'; 
+	        sock.send(mymessage);
+	        console.log("Message sent");
+	    });
+	     
+	    sockStats = new WebSocket('ws://localhost:8080/StreamGame/ws/topic/game/stats');
+		sock.onopen = function(ev) {
+			console.log('Connected to server))');
+	    }
+	    sock.onclose = function(ev) { 
+	        console.log('Disconnected');
+	    };
+	    sock.onmessage = function(ev) { 
+	    	console.log('Message '+ev.data);
+	    };
+	    sock.onerror = function(ev) { 
+	    	console.log('Error '+ev.data);
+	    };
+	});
+</script>
+</head>
+<body>
+
+	Click this component: <div id="send" style="background-color: blue">Click here</div>
+
+</body>
+</html>
